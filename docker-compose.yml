@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  test_app:
+    restart: "always"
+    build: .
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "12000:3000"
+    links:
+      - mongo
+    depends_on:
+      - mongo
+
+  mongo:
+    container_name: "test_mongodb"
+    image: mongo:4
+    restart: "always"
+    volumes:
+      - "./docker/.data/db:/data/db"
+    ports:
+      - "12047:27017"
+
+  
