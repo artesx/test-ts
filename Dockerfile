@@ -1,13 +1,19 @@
-FROM node:14
+FROM node:14.15.1-alpine
 
-WORKDIR /usr/src/app
+USER node
 
-COPY ./package.json ./
+RUN mkdir /home/node/app
+
+WORKDIR /home/node/app
+
+ENV PATH=$PATH:./node_modules/.bin
+
+COPY  --chown=node:node package.json package-lock.json ./
 
 RUN npm install
 
-COPY . .
+COPY --chown=node:node . .
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "start"]

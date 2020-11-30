@@ -4,6 +4,10 @@ services:
   test_app:
     restart: "always"
     build: .
+    command: 
+      - sh
+      - -c
+      - npm install && npm run start:dev
     volumes:
       - .:/usr/src/app
     ports:
